@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test">这是一个容器</div>  
+  <!-- react核心库 -->
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <!-- react扩展库,专门支持react操作dom -->
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <!-- 数据绑定是单向的 -->
+  <!-- 告诉babel把jsx编译成js -->
+  <script type="text/babel">// jsx
+  //1.创建虚拟dom  react-dom 多了ReactDOM对象
+  //const a=<h1>hello,react</h1> //此处的a创建VDOM  VDOM不是字符串,不要加引号!
+  const VDOM=<h1>hello,react!!</h1>
+
+  //2.通过react 渲染虚拟dom(虚拟dom翻译成了真实dom,随后放入页面容器)
+  //ReactDOM.render('渲染哪个虚拟dom','渲染到哪里')
+  ReactDOM.render(VDOM,document.getElementById('test'))//把test里面的东西替换成虚拟dom的内容,不是追加的操作
+  //ReacrDOM.render(VODM,document.getElementById('test'))
+  // 关于虚拟dom
+     //虚拟dom 是js中的一个普通对象,即object类型对象
+  //虚拟dom和真实dom区别:
+    //虚拟dom比较轻,是react在用的,无需真实dom身上那么多属性
+    //真实dom比较重
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+   class Weather extends React.Component{
+     constructor(...params){
+       super(...params)
+       this.state={
+         isHot:true,
+         temperature:'11~13℃'
+       }
+       this.change=this.change.bind(this)
+     }
+     change(){
+       const {isHot}=this.state
+       this.setState({isHot:!isHot})
+       console.log(this)
+     }
+     render(){
+       return(
+         <h2 onClick={this.change}>
+         今天天气很{this.state.isHot?'炎热' : '凉爽'},温度为：{this.state.temperature}
+         </h2>
+       )
+       }
+     }
+   ReactDOM.render(<Weather/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

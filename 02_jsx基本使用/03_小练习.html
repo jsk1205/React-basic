@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+  const arr=['jQuery','Angular','React','Vue']
+  const VDOM=(
+            <div>
+              <h1>前端js框架列表</h1>
+              <ul>
+                {//要把数据的数组加工成标签数组-->利用回调
+                  // arr.map((name,index)=>{
+                    // return <li key={index}>{name}</li>
+                  // })
+                  
+                  arr.map((name,index) => <li key={index}>{name}</li>)
+                }
+              </ul>
+            </div>
+             )
+  ReactDOM.render(VDOM,document.getElementById('test'))
+  </script>
+</body>
+</html>

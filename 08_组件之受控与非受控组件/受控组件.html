@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+  class Login extends React.Component{
+    state={
+      username:'',
+      password:''
+    }
+    handleSubmit=(event)=>{
+      //禁止表单提交
+      event.preventDefault()
+      //console.log('---handleSubmit---')
+      alert(`你输入的用户名是${this.state.username},密码是${this.state.password}`)
+    }
+    handleChange=(event,key)=>{
+      // console.log('改变了')
+      //获取用户的输入
+      const {value}= event.target
+      //将输入内容维护到state中
+      this.setState({[key]:value})
+
+    }
+    render(){
+      return(
+        <form onSubmit={this.handleSubmit}>
+          用户名:<input onChange={(event)=>{this.handleChange(event,'username')}} />
+          密码:<input onChange={(event)=>{this.handleChange(event,'password')}} type="password" />
+          <input type="submit"/>
+        </form>
+        )
+    }
+  }
+  ReactDOM.render(<Login/>,document.getElementById('test'))
+  //表单提交 react提供的方法 onSubmit onChange
+  //alert 里面只能读一个参数
+  //此时情况是 没有自己的状态 ,随着用户的输入,点击之后触发回调,是从自己的节点获取信息的
+  //我想 这个用户名和密码维护到自身的状态里面去,点击之后不再去找节点要而是从自己状态里面去拿
+  //此时用到onChange方法,将输入内容维护到state中 即this.setState({username:value})去更新状态
+  //onChange={(event)=>{this.handleChange(event,'username')}
+  //event :发生事件的本体 
+  //'username':发生事件的名字
+  
+  //受控组件:页面上所有输入类的dom.随着用户的输入,自动将输入的值维护到状态(state)中,就是受控组件
+  //即双向数据的绑定
+
+  //对比的是虚拟dom的树 :diff
+  </script>
+</body>
+</html>

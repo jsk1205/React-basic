@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+  class Demo extends React.Component{
+    //React.createRef()会创建一个容器(对象),专门用来保存节点,且容器只能保存一个节点
+    //如果里面多个时,后面的会把之前的覆盖
+    myRef=React.createRef()//准备容器
+
+    test=()=>{
+      console.log(this)
+     console.log(this.myRef.current.value) //{current: input}
+    }
+    test1=(event)=>{
+      //console.log(event)
+      alert(event.target.value);
+    }
+    render(){
+      //ref={this.myRef}
+      //如果ref 是字符串类型的 他就帮你收集到this.refs身上
+      //如果ref 是回调形式(func)的ref 他就看这个回调函数里面把节点想往哪里放 this.xxx
+      
+      //myRef=React.createRef()//准备容器
+      //如果直接是 this.xxx 那他就代表着一个容器,把当前节点保存到这个容器里面
+      return(
+        // 回调refs:ref的右侧不要再写 字符串 了
+        <div>
+          <input type="text" ref={this.myRef}/> &nbsp;
+          <button onClick={this.test}>点我提示左侧数据</button> &nbsp;
+          <input type="text" onBlur={this.test1}  placeholder="失去焦点提示数据"/>
+        </div>
+        )
+    }
+  }
+  ReactDOM.render(<Demo/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

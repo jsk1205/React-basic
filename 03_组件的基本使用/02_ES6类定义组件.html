@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" con tent="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+   //定义组件(es6类定义)--复杂组件
+  //  class Student{//构造函数
+  //    constructor(name,age){
+  //      this.name=name
+  //      this.age=age
+  //    }
+  //    study(){//study是放在student原型对象上的,原型对象身上的方法是给实例对象用的
+  //      console.log('学习')
+  //    }
+  //  }
+  //  let stu=new Student('xz',30)
+  //  console.log(stu)//输出的是student的类的实例对象
+
+  //1.定义组件
+  class Demo extends React.Component{//普通定义的一个类继承react,那么他就变成了一个组件(用类定义的组件)
+ //让子类的原型指向父类的实例:继承
+ //render是放在Demo的原型对象上的,Demo的实例可以调用到
+    render(){//该render与ReactDOM.render没有关系,仅仅是重名-->必须有返回值
+      console.log(this)// Demo的实例对象
+      return <h1>我是es6类定义的</h1>
+     //1.react发现<Demo/>首字母是大写,寻找Demo组件定义的位置
+     //2.react帮我们,new了一个Demo的实例
+     //3.通过上一步的实例,调用到了Demo原型上的render方法,获取到了返回值
+     //4.把返回的虚拟dom转换成真实dom,放入指定容器
+    }
+  }
+  //2.渲染组件
+  ReactDOM.render(<Demo/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

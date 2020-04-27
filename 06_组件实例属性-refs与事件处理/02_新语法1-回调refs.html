@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+  class Demo extends React.Component{
+    test=()=>{
+      //console.log(this.left) //<input type="text">
+      alert(this.left.value)
+    }
+    test1=(event)=>{
+      //console.log(event)
+      alert(event.target.value);
+    }
+    render(){
+      //ref={(currentNode)=>{this.left=currentNode}}
+      //把节点作为参数传进去,函数体拿到了传进来的节点,然后挂载到组件的实例对象身上的属性left上
+      return(
+        // 回调refs:ref的右侧不要再写 字符串 了
+        <div>
+          <input type="text" ref={currentNode=>this.left=currentNode}/> &nbsp;
+          <button onClick={this.test}>点我提示左侧数据</button> &nbsp;
+          <input type="text" onBlur={this.test1}  placeholder="失去焦点提示数据"/>
+          </div>
+        )
+    }
+  }
+  ReactDOM.render(<Demo/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

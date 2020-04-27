@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+  class Weather extends React.Component{
+    // constructor(...params){//构造器中的this是类的实例对象
+    //    super(...params)//通过super调用父类的构造方法
+    //    this.state={
+    //      isHot:true,
+    //      temperature:'11~13℃'
+    //    }
+    //    this.change = this.change.bind(this)
+    //  } 
+    //简写方式一 :state直接写赋值语句
+    state={
+      isHot:true,
+      temperature:'11~13℃'
+    }
+
+    // change(){
+    //   let {isHot}=this.state
+    //   this.setState({isHot:!isHot})
+    //   console.log(this)
+    // }
+    //简写方式二 :自己定义的非生命周期函数写赋值语句,且函数要写箭头函数
+    change=()=>{//箭头函数:没有自己的this ,向外找this 就找到了类的实例对象 
+    //相当于赋值语句 a=1 往实例对象身上加了一个属性 change 属性值为一个箭头函数
+      let {isHot}=this.state
+      this.setState({isHot:!isHot})
+      console.log(this)
+    }
+   //由于render属于生命周期函数,所以不用写成赋值语句,本身this是没问题的
+    render(){
+      return(
+        <h2 onClick={this.change}>
+         今天天气很{this.state.isHot?'炎热' : '凉爽'},温度为：{this.state.temperature}
+         </h2>
+      )
+    }
+  }
+  ReactDOM.render(<Weather/>,document.getElementById('test'))
+  </script>
+</body>
+</html>

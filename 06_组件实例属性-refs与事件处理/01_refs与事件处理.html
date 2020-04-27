@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+  class Demo extends React.Component{
+    test=()=>{
+      //console.log(this)
+      console.log(this.refs)//{left: input}
+      //获取左侧input的内容
+      const {value}=this.refs.left
+      alert(value)
+    }
+    test1=(event)=>{
+      //console.log(event)
+      alert(event.target.value);
+    }
+    render(){
+      //不要滥用ref
+      // <input type="text" ref="right" onBlur={this.test1}  placeholder="失去焦点提示数据"/>
+      // <input type="text" onBlur={()=>{this.test1('haha')}//自己调用的}  placeholder="失去焦点提示数据"/>
+      return(
+        <div>
+          <input type="text" ref="left"/> &nbsp;
+          <button onClick={this.test}>点我提示左侧数据</button> &nbsp;
+          <input type="text" onBlur={this.test1}  placeholder="失去焦点提示数据"/>
+          </div>
+        )
+      }
+    }
+  
+  ReactDOM.render(<Demo/>,document.getElementById('test'))
+  //<input type="text" ref="left"/> &nbsp;
+  //所以被ref声明的标签都被收集到一个对象中去, 赋值给了组件实例对象的refs里面
+  //即this.refs={}
+  
+  //如果发生事件的本体就是你要操作的节点,借助event就可以了
+  //目前是 发生onClick的是这个button,要在他的回调里去拿另一个节点的值 用ref
+  </script>
+</body>
+</html>

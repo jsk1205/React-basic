@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+  //工厂函数定义组件/函数式定义组件
+  function Car() {
+    console.log(this)  //undefined 因为经过babel翻译之后开启了严格模式,禁止自定义函数的this指向window
+    return <h1>我是用函数定义的组件</h1>
+  }
+  //渲染组件到页面
+  ReactDOM.render(<Car/>,document.getElementById('test'))
+  //我们没有调,是react自己调的
+  //当你写了ReactDOM.render,do...后发生了什么
+  //1.react发现<Car/>首字母是大写,寻找Car组件定义的位置
+  //2.react帮我们,自动调用Car函数,并获取到Car函数的返回值
+  //3.把返回的虚拟DOM,转换成真实DOM,放入指定容器
+
+  // 1.函数式定义组件
+  // 2.渲染组件到页面
+  // 遇到<开头的代码以js语法解析,他就认为是标签了,标签中的js表达式必须用{}包含
+  // 以<开头的首字母默认直接转成html标签
+  //<Car/>
+  //非普通标签即组件标签 首字母必须大写 定义的地方也要改,要不然找不到
+  //两种标签:首字母小写的,和html同名的标签
+  //        首字母大写的组件标签
+  </script>
+</body>
+</html>

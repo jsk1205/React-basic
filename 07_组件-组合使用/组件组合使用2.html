@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <script type="text/babel">
+
+    class App extends React.Component{
+     state={
+       todos:['吃饭','睡觉','谈恋爱','玩游戏']
+     }
+     addTodo=(name)=>{
+       const {todos}=this.state
+       this.setState({todos:[name,...todos]})
+     }
+      render(){
+      const {todos}=this.state
+        return(
+        <div>
+          <h1>Simple Todo List</h1>
+          <Add count={todos.length} addTodo={this.addTodo}/>
+          <List todos={todos}/>
+        </div>
+      )
+    }
+   }
+   //用于添加的
+    class Add extends React.Component{
+      add=()=>{
+        let {value}=this.inputNode
+        if (!value||!value.trim()) {
+          alert('输入不能为空')
+          return
+        }
+        this.props.addTodo(value)
+        this.inputNode.value=''
+      }
+      render() {
+        return (
+          <div>
+            <input type="text" ref={currentNode=>this.inputNode=currentNode}/>
+            <button onClick={this.add}>Add#{this.props.count}</button>
+          </div>
+        )
+      }
+    }
+    //用于展示列表的
+    class List extends React.Component{
+       render(){
+        return(
+        <div>
+          <ul>
+            {
+              this.props.todos.map((name,index)=>{
+                return <li key={index}>{name}</li>
+              })
+            }
+          </ul>
+        </div>
+      )
+    } 
+    }
+  ReactDOM.render(<App/>,document.getElementById('test'))
+  </script>
+</body>
+
+</html>

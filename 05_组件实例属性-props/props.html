@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="test"></div>  
+  <div id="test1"></div>
+  <script type="text/javascript" src="../js/react.development.js"></script>
+  <script type="text/javascript" src="../js/react-dom.development.js"></script>
+  <script type="text/javascript" src="../js/babel.min.js"></script>
+  <!-- 用于限制属性的类型以及必要性 -->
+  <script type="text/javascript" src="../js/prop-types.js"></script>
+  <script type="text/babel">
+    /*
+   需求: 自定义用来显示一个人员信息的组件，包含：姓名、年龄、性别三个信息
+      1). 姓名必须为字符串类型，且是必要信息
+      2). 年龄必须为数字类型，且是必要信息
+			3). 性别必须为字符串类型，若没有指定性别，默认值为“男”
+  1.寻找Person定义的位置
+  2.new Person
+  3.React会询问Person类身上是否有propsTypes,defaultProps是否要做出检查
+    有:--按照规则执行
+    没有:---忽略
+  4.通过实例调用render
+  
+  */
+  class Person extends React.Component{
+		//限制传递标签属性的必要性、类型
+		// Person.propsTypes = {//
+    static propsTypes = {// 就在类本身 了 -->3.React会询问Person类身上是否有propsTypes,defaultProps是否要做出检查
+			name:PropTypes.string.isRequired, //表示：name是必填项且为字符串类型
+			age:PropTypes.number.isRequired,//表示：age是必填项且为数字类型
+			sex:PropTypes.string//表示：sex是字符串类型
+		}
+
+		//指定传递标签属性的默认值
+		static defaultProps = {
+			sex:'不男不女'
+		}
+  //const {p1}=this.props //会报错
+   //props:汇总标签属性
+   render(){
+			console.log(this);
+			const {name,age,sex} = this.props
+			return (
+				<div>
+					<ul>
+						<li>姓名：{name}</li>
+						<li>年龄：{age}</li>
+						<li>性别：{sex}</li>
+					</ul>
+					<hr/>
+				</div>
+			)
+		}
+	}
+  //模拟一个人的信息
+	const p1 = {
+		name:'小猪佩奇',
+		age:5,
+		sex:'女'
+	}
+	//2.渲染组件
+  console.log('####',...p1)  // 但是仅适用于标签属性 所以只有###  
+  //传递标签属性 props负责收集汇总为一个对象
+  ReactDOM.render(<Person name="TOM" age={18} />,document.getElementById('test'))
+  //ReactDOM.render(<Person name={p1.name} age={p1.age} sex={p1.sex}/>,document.getElementById('test1'))
+  ReactDOM.render(<Person {...p1}/>,document.getElementById('test1'))
+  // {...p1} 代表js表达式 不是对象  和 [复制 别搞混了(es8新语法)]
+  //而对p1 作为一个对象 ... 给展开了
+  //在非react环境里面 ...运算符不能展开对象 只能是数组 /for of 也是如此 不能遍历对象 只能是数组   
+  //在react+babel环境里面,可以让三点运算符展开一个对象,但是仅适用于标签属性
+  </script>
+</body>
+</html>
